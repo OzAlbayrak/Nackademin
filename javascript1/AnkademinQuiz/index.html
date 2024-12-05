@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1 class="quiz-slogan">Ankademin Quiz</h1>
+    </header>
+    <div>
+      <p id="quizText"></p>
+    </div>
+    <div>
+      <form>
+        <input type="checkbox" id="answer1" name="answer1" value="a" />
+        <label for="answer1"> A - I have a bike</label><br />
+        <input type="checkbox" id="answer2" name="answer2" value="b" />
+        <label for="answer2"> B - I have a car</label><br />
+        <input type="checkbox" id="answer3" name="answer3" value="c" />
+        <label for="answer3"> C - I have a boat</label><br />
+        <input type="checkbox" id="answer4" name="answer4" value="d" />
+        <label for="answer4"> D - I have a mc</label><br /><br />
+        <input type="submit" value="Next question" />
+      </form>
+    </div>
+    <div>
+        <button>
+            Start new quiz
+        </button>
+    </div>
+  </body>
 </html>
