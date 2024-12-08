@@ -1,0 +1,12 @@
+body {
+  padding: 1.5rem;
+  background-color: white;
+  color: black;
+  font-size: 1.5rem;
+  justify-self: center;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}

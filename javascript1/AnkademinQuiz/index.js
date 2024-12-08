@@ -1,4 +1,6 @@
 let quizOnGoing = false;
+let darkModeButton = document.getElementById("darkModeButton");
+darkModeButton.textContent = "Dark Mode";
 let quizStartButton = document.getElementById("quizStartButton");
 let quizAnswerSelection = document.getElementById("quizAnswerSelection");
 quizAnswerSelection.style.display = "none";
@@ -104,6 +106,16 @@ const quizQuestions = [
     questionSolution: [true, false, true, false],
   },
 ];
+
+function darkMode() {
+  var element = document.body;
+  element.classList.toggle("dark-mode");
+  if (darkModeButton.textContent === "Dark Mode") {
+    darkModeButton.textContent = "Light Mode";
+  } else {
+    darkModeButton.textContent = "Dark Mode";
+  }
+}
 
 function startQuiz() {
   quizOnGoing = true;
