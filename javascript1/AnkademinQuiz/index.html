@@ -8,11 +8,12 @@
     <script src="index.js" defer></script>
   </head>
   <body>
-    <div>
+    <div class="quiz-game">
       <header>
         <h1 class="quiz-slogan">Ankademin Quiz</h1>
       </header>
       <div>
+        <h2 id="quizTextHeader"></h2>
         <p id="quizText"></p>
       </div>
       <div id="quizAnswerSelection">
@@ -25,11 +26,16 @@
         <input type="checkbox" id="answer4" name="answer4" value="d" />
         <label for="answer4"> D - I have a mc</label><br /><br />
       </div>
-      <div id="quizAnswerButton">
-        <input type="submit" value="Next question" />
-      </div>
       <div id="quizStartButton">
         <button onclick="startQuiz()">Start new quiz</button>
+      </div>
+      <div class="quiz-buttons">
+        <div id="quizNextButton">
+          <button onclick="nextQuestion()">Next question</button>
+        </div>
+        <div id="quizEndButton">
+          <button onclick="endQuiz()">End quiz</button>
+        </div>
       </div>
     </div>
   </body>
