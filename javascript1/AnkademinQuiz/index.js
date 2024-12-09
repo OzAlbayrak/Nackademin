@@ -38,21 +38,25 @@ const quizQuestions = [
     questionText: "Hur många dagar är en vecka?",
     questionAnswer: ["3 dagar", "7,5 dagar", "5 dagar", "7 dagar"],
     questionSolution: [false, false, false, true],
+    questionPoints: 1,
   },
   {
     questionText: "Hur många timmar är en vecka",
     questionAnswer: ["128 timmar", "48 timmar", "168 timmar", "12 timmar"],
     questionSolution: [false, false, true, false],
+    questionPoints: 1,
   },
   {
     questionText: "Vilka dagar i veckan har klass FEND24 lektioner",
     questionAnswer: ["Måndag", "Fredag", "Tisdag", "Torsdag"],
     questionSolution: [false, false, true, true],
+    questionPoints: 2,
   },
   {
     questionText: "Hur många minuter är en timme",
     questionAnswer: ["120 minuter", "60 minuter", "30 minuter", "256 minuter"],
     questionSolution: [false, true, false, false],
+    questionPoints: 1,
   },
   {
     questionText: "Vad är Nackademins gatuadress",
@@ -63,6 +67,7 @@ const quizQuestions = [
       "Ej Tomtebodavägen 7A",
     ],
     questionSolution: [false, true, false, true],
+    questionPoints: 2,
   },
   {
     questionText:
@@ -74,6 +79,7 @@ const quizQuestions = [
       "Är på deltid",
     ],
     questionSolution: [false, true, true, false],
+    questionPoints: 2,
   },
   {
     questionText: "Vilka av följande klassrum har klass FEND24 haft lektioner",
@@ -84,6 +90,7 @@ const quizQuestions = [
       "Klassrum C204",
     ],
     questionSolution: [false, true, true, true],
+    questionPoints: 3,
   },
   {
     questionText: "Hur många sekunder är en minut",
@@ -94,6 +101,7 @@ const quizQuestions = [
       "128 sekunder",
     ],
     questionSolution: [true, false, false, false],
+    questionPoints: 1,
   },
   {
     questionText: "Hur många sekunder är en timme",
@@ -104,6 +112,7 @@ const quizQuestions = [
       "Mer än 3,6 sekunder",
     ],
     questionSolution: [true, false, false, true],
+    questionPoints: 2,
   },
   {
     questionText: "Hur långt tid innan ska man börja sin inlämningsuppgift?",
@@ -114,16 +123,19 @@ const quizQuestions = [
       "1 timme innan deadline",
     ],
     questionSolution: [true, false, true, false],
+    questionPoints: 2,
   },
   {
-    questionText: "Hur många sekunder är en timme",
-    questionAnswer: ["3600 sekunder", "360 sekunder"],
+    questionText: "Det är 12 månader i ett år",
+    questionAnswer: ["Det stämmer", "Det stämmer inte"],
     questionSolution: [true, false],
+    questionPoints: 1,
   },
   {
-    questionText: "Hur många sekunder är en timme",
-    questionAnswer: ["36 sekunder", "Mer än 3,6 sekunder"],
+    questionText: "JavaScrip är roligt",
+    questionAnswer: ["Det stämmer", "Det stämmer inte"],
     questionSolution: [true, false],
+    questionPoints: 1,
   },
 ];
 
@@ -202,6 +214,7 @@ function nextQuestion() {
 }
 
 function endQuiz() {
+  let totPoint = 0;
   quizStartButton.style.display = "block";
   document.getElementById("answer1").checked = false;
   document.getElementById("answer2").checked = false;
@@ -218,4 +231,19 @@ function endQuiz() {
   quizTextHeader.textContent = "";
   quizText.textContent = "";
   console.log("End of game");
+
+  for (let i = 0; i < quizQuestions.length; i++) {
+    if (i < playerAnswer.length) {
+      let checkSolution = 0;
+      let pointCounter = 0;
+      for (let x = 0; x < quizQuestions[i].questionSolution.length; x++) {
+        if (quizQuestions[i].questionSolution[x] === playerAnswer[i][x]) {
+          if (playerAnswer[i][x] === true) {
+            pointCounter++;
+          }
+          checkSolution++;
+        }
+      }
+    }
+  }
 }
