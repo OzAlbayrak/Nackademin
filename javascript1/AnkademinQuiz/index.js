@@ -318,6 +318,7 @@ function endQuiz() {
 
   for (let i = 0; i < quizQuestions.length; i++) {
     const div = document.createElement("div");
+    div.classList.add("quiz-score");
     div.innerText =
       "Fråga " +
       (i + 1) +
