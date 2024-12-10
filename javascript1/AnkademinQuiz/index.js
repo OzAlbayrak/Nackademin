@@ -1,4 +1,4 @@
-let quizOnGoing = false;
+//let quizOnGoing = false;
 let darkModeButton = document.getElementById("darkModeButton");
 darkModeButton.textContent = "Dark Mode";
 let quizStartButton = document.getElementById("quizStartButton");
@@ -17,7 +17,8 @@ let quizEndButton = document.getElementById("quizEndButton");
 quizEndButton.style.display = "none";
 let quizTextHeader = document.querySelector("#quizTextHeader");
 let quizText = document.querySelector("#quizText");
-
+let questionAnswer;
+const quizQuestionAnswerSelection = ["A", "B", "C", "D"];
 let questionAnswerSelection = [4];
 questionAnswerSelection[0] = document.querySelector(
   "#questionAnswerSelection1"
@@ -150,11 +151,12 @@ function darkMode() {
 }
 
 function startQuiz() {
-  quizOnGoing = true;
+  //quizOnGoing = true;
   playerAnswer = [];
   quizStartButton.style.display = "none";
   quizNextButton.style.display = "inline-block";
   quizEndButton.style.display = "inline-block";
+  quizTextHeader.style.color = "black";
   console.log(quizQuestions);
 
   quizTextHeader.textContent = "Fråga " + (playerAnswer.length + 1);
@@ -214,7 +216,9 @@ function nextQuestion() {
 }
 
 function endQuiz() {
-  let totPoint = 0;
+  let totQuizPoint = 0;
+  let playerTotPoint = 0;
+  let playerPoints = [];
   quizStartButton.style.display = "block";
   document.getElementById("answer1").checked = false;
   document.getElementById("answer2").checked = false;
@@ -232,18 +236,61 @@ function endQuiz() {
   quizText.textContent = "";
   console.log("End of game");
 
+  let checkSolution = 0;
+  let quizQuestionPoint = 0;
   for (let i = 0; i < quizQuestions.length; i++) {
+    totQuizPoint += quizQuestions[i].questionPoints;
+    //console.log(i);
     if (i < playerAnswer.length) {
-      let checkSolution = 0;
-      let pointCounter = 0;
+      checkSolution = 0;
+      quizQuestionPoint = 0;
       for (let x = 0; x < quizQuestions[i].questionSolution.length; x++) {
-        if (quizQuestions[i].questionSolution[x] === playerAnswer[i][x]) {
-          if (playerAnswer[i][x] === true) {
-            pointCounter++;
-          }
+        //console.log(x);
+
+        if (
+          quizQuestions[i].questionSolution[x] !== playerAnswer[i][x] &&
+          playerAnswer[i][x] === true
+        ) {
           checkSolution++;
+          console.log(checkSolution);
+        }
+        if (
+          quizQuestions[i].questionSolution[x] === playerAnswer[i][x] &&
+          playerAnswer[i][x] === true
+        ) {
+          quizQuestionPoint++;
+          console.log(playerPoints);
         }
       }
+      if (checkSolution === 0 && quizQuestionPoint > 0) {
+        playerTotPoint += quizQuestionPoint;
+        if (quizQuestionPoint < quizQuestions[i].questionPoints) {
+          playerPoints[i] = "Delvis rätt";
+        } else {
+          playerPoints[i] = "Alla rätt";
+        }
+      } else {
+        playerPoints[i] = "Fel";
+      }
+    } else {
+      playerPoints[i] = "Fel";
     }
   }
+  console.log(playerAnswer);
+  console.log(playerTotPoint);
+  console.log(playerPoints);
+  console.log(totQuizPoint);
+  console.log(quizQuestionAnswerSelection[3]);
+
+  if (playerTotPoint / totQuizPoint < 0.5) {
+    quizTextHeader.style.color = "red";
+  } else if (playerTotPoint / totQuizPoint > 0.75) {
+    quizTextHeader.style.color = "green";
+  } else {
+    quizTextHeader.style.color = "orange";
+  }
+
+  quizTextHeader.innerText =
+    "Ditt har fått " + playerTotPoint + " poäng av " + totQuizPoint;
+  for (let i = 0; i < quizQuestions.length; i++) {}
 }
