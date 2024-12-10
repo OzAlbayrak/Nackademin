@@ -292,5 +292,19 @@ function endQuiz() {
 
   quizTextHeader.innerText =
     "Ditt har fått " + playerTotPoint + " poäng av " + totQuizPoint;
-  for (let i = 0; i < quizQuestions.length; i++) {}
+
+  for (let i = 0; i < quizQuestions.length; i++) {
+    const div = document.createElement("div");
+    div.innerText =
+      "Fråga " +
+      (i + 1) +
+      ": " +
+      playerPoints[i] +
+      " ( Ditt svar: " +
+      quizQuestionAnswerSelection +
+      " Rätt svar: " +
+      quizQuestionAnswerSelection +
+      " )";
+    quizText.append(div);
+  }
 }
