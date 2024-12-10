@@ -1,4 +1,3 @@
-//let quizOnGoing = false;
 let darkModeButton = document.getElementById("darkModeButton");
 darkModeButton.textContent = "Dark Mode";
 let quizStartButton = document.getElementById("quizStartButton");
@@ -34,29 +33,35 @@ questionAnswerSelection[3] = document.querySelector(
 );
 
 let playerAnswer = [];
+let playerAnswerText = [];
+let playerAnswerPoint = [];
 const quizQuestions = [
   {
     questionText: "Hur många dagar är en vecka?",
     questionAnswer: ["3 dagar", "7,5 dagar", "5 dagar", "7 dagar"],
     questionSolution: [false, false, false, true],
+    questionSolutionText: ["D"],
     questionPoints: 1,
   },
   {
     questionText: "Hur många timmar är en vecka",
     questionAnswer: ["128 timmar", "48 timmar", "168 timmar", "12 timmar"],
     questionSolution: [false, false, true, false],
+    questionSolutionText: ["C"],
     questionPoints: 1,
   },
   {
     questionText: "Vilka dagar i veckan har klass FEND24 lektioner",
     questionAnswer: ["Måndag", "Fredag", "Tisdag", "Torsdag"],
     questionSolution: [false, false, true, true],
+    questionSolutionText: ["C", "D"],
     questionPoints: 2,
   },
   {
     questionText: "Hur många minuter är en timme",
     questionAnswer: ["120 minuter", "60 minuter", "30 minuter", "256 minuter"],
     questionSolution: [false, true, false, false],
+    questionSolutionText: ["B"],
     questionPoints: 1,
   },
   {
@@ -68,6 +73,7 @@ const quizQuestions = [
       "Ej Tomtebodavägen 7A",
     ],
     questionSolution: [false, true, false, true],
+    questionSolutionText: ["B", "D"],
     questionPoints: 2,
   },
   {
@@ -80,6 +86,7 @@ const quizQuestions = [
       "Är på deltid",
     ],
     questionSolution: [false, true, true, false],
+    questionSolutionText: ["B", "C"],
     questionPoints: 2,
   },
   {
@@ -91,6 +98,7 @@ const quizQuestions = [
       "Klassrum C204",
     ],
     questionSolution: [false, true, true, true],
+    questionSolutionText: ["B", "C", "D"],
     questionPoints: 3,
   },
   {
@@ -102,6 +110,7 @@ const quizQuestions = [
       "128 sekunder",
     ],
     questionSolution: [true, false, false, false],
+    questionSolutionText: ["A"],
     questionPoints: 1,
   },
   {
@@ -113,6 +122,7 @@ const quizQuestions = [
       "Mer än 3,6 sekunder",
     ],
     questionSolution: [true, false, false, true],
+    questionSolutionText: ["A", "D"],
     questionPoints: 2,
   },
   {
@@ -124,18 +134,21 @@ const quizQuestions = [
       "1 timme innan deadline",
     ],
     questionSolution: [true, false, true, false],
+    questionSolutionText: ["A", "C"],
     questionPoints: 2,
   },
   {
     questionText: "Det är 12 månader i ett år",
     questionAnswer: ["Det stämmer", "Det stämmer inte"],
     questionSolution: [true, false],
+    questionSolutionText: ["A"],
     questionPoints: 1,
   },
   {
     questionText: "JavaScrip är roligt",
     questionAnswer: ["Det stämmer", "Det stämmer inte"],
     questionSolution: [true, false],
+    questionSolutionText: ["A"],
     questionPoints: 1,
   },
 ];
@@ -151,13 +164,13 @@ function darkMode() {
 }
 
 function startQuiz() {
-  //quizOnGoing = true;
   playerAnswer = [];
+  playerAnswerText = [];
+  playerAnswerPoint = [];
   quizStartButton.style.display = "none";
   quizNextButton.style.display = "inline-block";
   quizEndButton.style.display = "inline-block";
   quizTextHeader.style.color = "black";
-  console.log(quizQuestions);
 
   quizTextHeader.textContent = "Fråga " + (playerAnswer.length + 1);
   quizText.textContent = quizQuestions[playerAnswer.length].questionText;
@@ -195,7 +208,6 @@ function nextQuestion() {
     questionAnswerSelection[i].textContent = "";
   }
 
-  console.log(playerAnswer);
   if (playerAnswer.length > 11) {
     endQuiz();
   } else {
@@ -234,36 +246,50 @@ function endQuiz() {
   quizEndButton.style.display = "none";
   quizTextHeader.textContent = "";
   quizText.textContent = "";
-  console.log("End of game");
 
   let checkSolution = 0;
   let quizQuestionPoint = 0;
   for (let i = 0; i < quizQuestions.length; i++) {
     totQuizPoint += quizQuestions[i].questionPoints;
-    //console.log(i);
+
     if (i < playerAnswer.length) {
       checkSolution = 0;
       quizQuestionPoint = 0;
-      for (let x = 0; x < quizQuestions[i].questionSolution.length; x++) {
-        //console.log(x);
+      let playerAnswerTextTemp = "";
 
+      for (let x = 0; x < quizQuestions[i].questionSolution.length; x++) {
         if (
           quizQuestions[i].questionSolution[x] !== playerAnswer[i][x] &&
           playerAnswer[i][x] === true
         ) {
           checkSolution++;
-          console.log(checkSolution);
         }
         if (
           quizQuestions[i].questionSolution[x] === playerAnswer[i][x] &&
           playerAnswer[i][x] === true
         ) {
           quizQuestionPoint++;
-          console.log(playerPoints);
+        }
+        if (playerAnswer[i][x] === true) {
+          if (playerAnswerTextTemp === "") {
+            playerAnswerTextTemp += quizQuestionAnswerSelection[x];
+          } else {
+            playerAnswerTextTemp += "," + quizQuestionAnswerSelection[x];
+          }
+        } else {
+          playerAnswerTextTemp === "";
         }
       }
+
+      if (playerAnswerTextTemp === "") {
+        playerAnswerText[i] = "Ingen svar";
+      } else {
+        playerAnswerText[i] = playerAnswerTextTemp;
+      }
+
       if (checkSolution === 0 && quizQuestionPoint > 0) {
         playerTotPoint += quizQuestionPoint;
+        playerAnswerPoint[i] = quizQuestionPoint;
         if (quizQuestionPoint < quizQuestions[i].questionPoints) {
           playerPoints[i] = "Delvis rätt";
         } else {
@@ -271,16 +297,13 @@ function endQuiz() {
         }
       } else {
         playerPoints[i] = "Fel";
+        playerAnswerPoint[i] = 0;
       }
     } else {
       playerPoints[i] = "Fel";
+      playerAnswerPoint[i] = 0;
     }
   }
-  console.log(playerAnswer);
-  console.log(playerTotPoint);
-  console.log(playerPoints);
-  console.log(totQuizPoint);
-  console.log(quizQuestionAnswerSelection[3]);
 
   if (playerTotPoint / totQuizPoint < 0.5) {
     quizTextHeader.style.color = "red";
@@ -300,10 +323,12 @@ function endQuiz() {
       (i + 1) +
       ": " +
       playerPoints[i] +
-      " ( Ditt svar: " +
-      quizQuestionAnswerSelection +
-      " Rätt svar: " +
-      quizQuestionAnswerSelection +
+      ". " +
+      playerAnswerPoint[i] +
+      " poäng ( Ditt svar: " +
+      playerAnswerText[i] +
+      " / rätt svar: " +
+      quizQuestions[i].questionSolutionText +
       " )";
     quizText.append(div);
   }
