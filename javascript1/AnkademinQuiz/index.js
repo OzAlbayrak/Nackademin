@@ -2,14 +2,19 @@ let darkModeButton = document.getElementById("darkModeButton");
 darkModeButton.textContent = "Dark Mode";
 let quizStartButton = document.getElementById("quizStartButton");
 let checkBoxSelection = [4];
-checkBoxSelection[0] = document.getElementById("answer1");
-checkBoxSelection[1] = document.getElementById("answer2");
-checkBoxSelection[2] = document.getElementById("answer3");
-checkBoxSelection[3] = document.getElementById("answer4");
+checkBoxSelection[0] = document.getElementById("checkBoxAnswer1");
+checkBoxSelection[1] = document.getElementById("checkBoxAnswer2");
+checkBoxSelection[2] = document.getElementById("checkBoxAnswer3");
+checkBoxSelection[3] = document.getElementById("checkBoxAnswer4");
 checkBoxSelection[0].style.display = "none";
 checkBoxSelection[1].style.display = "none";
 checkBoxSelection[2].style.display = "none";
 checkBoxSelection[3].style.display = "none";
+let radioButtonSelection = [2];
+radioButtonSelection[0] = document.getElementById("radioButtonAnswer1");
+radioButtonSelection[1] = document.getElementById("radioButtonAnswer2");
+radioButtonSelection[0].style.display = "none";
+radioButtonSelection[1].style.display = "none";
 let quizNextButton = document.getElementById("quizNextButton");
 quizNextButton.style.display = "none";
 let quizEndButton = document.getElementById("quizEndButton");
@@ -30,6 +35,13 @@ questionAnswerSelection[2] = document.querySelector(
 );
 questionAnswerSelection[3] = document.querySelector(
   "#questionAnswerSelection4"
+);
+let questionAnswerSelectionRadioButton = [2];
+questionAnswerSelectionRadioButton[0] = document.querySelector(
+  "#questionAnswerSelectionRadioButton1"
+);
+questionAnswerSelectionRadioButton[1] = document.querySelector(
+  "#questionAnswerSelectionRadioButton2"
 );
 
 let playerAnswer = [];
@@ -188,41 +200,80 @@ function startQuiz() {
 }
 
 function nextQuestion() {
-  let playerCheckBoxAnswer = [];
-  for (
-    let i = 0;
-    i < quizQuestions[playerAnswer.length].questionAnswer.length;
-    i++
-  ) {
-    playerCheckBoxAnswer[i] = checkBoxSelection[i].checked;
-  }
-  playerAnswer.push(playerCheckBoxAnswer);
+  if (playerAnswer.length < 12) {
+    if (playerAnswer.length > 9) {
+      let playerRadioButtonAnswer = [];
 
-  document.getElementById("answer1").checked = false;
-  document.getElementById("answer2").checked = false;
-  document.getElementById("answer3").checked = false;
-  document.getElementById("answer4").checked = false;
+      for (
+        let i = 0;
+        i < quizQuestions[playerAnswer.length].questionAnswer.length;
+        i++
+      ) {
+        playerRadioButtonAnswer[i] = radioButtonSelection[i].checked;
+      }
 
-  for (let i = 0; i < 4; i++) {
-    checkBoxSelection[i].style.display = "none";
-    questionAnswerSelection[i].textContent = "";
+      playerAnswer.push(playerRadioButtonAnswer);
+
+      document.getElementById("radioButtonAnswer1").checked = false;
+      document.getElementById("radioButtonAnswer2").checked = false;
+
+      for (let i = 0; i < 2; i++) {
+        checkBoxSelection[i].style.display = "none";
+        questionAnswerSelectionRadioButton[i].textContent = "";
+      }
+    } else {
+      let playerCheckBoxAnswer = [];
+      for (
+        let i = 0;
+        i < quizQuestions[playerAnswer.length].questionAnswer.length;
+        i++
+      ) {
+        playerCheckBoxAnswer[i] = checkBoxSelection[i].checked;
+      }
+      playerAnswer.push(playerCheckBoxAnswer);
+
+      document.getElementById("checkBoxAnswer1").checked = false;
+      document.getElementById("checkBoxAnswer2").checked = false;
+      document.getElementById("checkBoxAnswer3").checked = false;
+      document.getElementById("checkBoxAnswer4").checked = false;
+
+      for (let i = 0; i < 4; i++) {
+        checkBoxSelection[i].style.display = "none";
+        questionAnswerSelection[i].textContent = "";
+      }
+    }
   }
 
   if (playerAnswer.length > 11) {
     endQuiz();
   } else {
-    quizTextHeader.textContent = "Fråga " + (playerAnswer.length + 1);
-    quizText.textContent = quizQuestions[playerAnswer.length].questionText;
+    if (playerAnswer.length > 9) {
+      quizTextHeader.textContent = "Fråga " + (playerAnswer.length + 1);
+      quizText.textContent = quizQuestions[playerAnswer.length].questionText;
 
-    for (
-      let i = 0;
-      i < quizQuestions[playerAnswer.length].questionAnswer.length;
-      i++
-    ) {
-      checkBoxSelection[i].style.display = "inline-block";
-      questionAnswerSelection[i].textContent =
-        checkBoxSelection[i].value +
-        quizQuestions[playerAnswer.length].questionAnswer[i];
+      for (
+        let i = 0;
+        i < quizQuestions[playerAnswer.length].questionAnswer.length;
+        i++
+      ) {
+        radioButtonSelection[i].style.display = "inline-block";
+        questionAnswerSelectionRadioButton[i].textContent =
+          radioButtonSelection[i].value +
+          quizQuestions[playerAnswer.length].questionAnswer[i];
+      }
+    } else {
+      quizTextHeader.textContent = "Fråga " + (playerAnswer.length + 1);
+      quizText.textContent = quizQuestions[playerAnswer.length].questionText;
+      for (
+        let i = 0;
+        i < quizQuestions[playerAnswer.length].questionAnswer.length;
+        i++
+      ) {
+        checkBoxSelection[i].style.display = "inline-block";
+        questionAnswerSelection[i].textContent =
+          checkBoxSelection[i].value +
+          quizQuestions[playerAnswer.length].questionAnswer[i];
+      }
     }
   }
 }
@@ -232,10 +283,13 @@ function endQuiz() {
   let playerTotPoint = 0;
   let playerPoints = [];
   quizStartButton.style.display = "block";
-  document.getElementById("answer1").checked = false;
-  document.getElementById("answer2").checked = false;
-  document.getElementById("answer3").checked = false;
-  document.getElementById("answer4").checked = false;
+  document.getElementById("checkBoxAnswer1").checked = false;
+  document.getElementById("checkBoxAnswer2").checked = false;
+  document.getElementById("checkBoxAnswer3").checked = false;
+  document.getElementById("checkBoxAnswer4").checked = false;
+
+  radioButtonSelection[0].style.display = "none";
+  radioButtonSelection[1].style.display = "none";
 
   for (let i = 0; i < 4; i++) {
     checkBoxSelection[i].style.display = "none";

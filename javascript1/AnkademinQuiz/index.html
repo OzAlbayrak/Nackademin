@@ -16,15 +16,67 @@
         <h2 id="quizTextHeader"></h2>
         <p id="quizText"></p>
       </div>
-      <div id="quizAnswerSelection">
-        <input type="checkbox" id="answer1" name="answer1" value="A - " />
-        <label id="questionAnswerSelection1" for="answer1"></label><br />
-        <input type="checkbox" id="answer2" name="answer2" value="B - " />
-        <label id="questionAnswerSelection2" for="answer2"></label><br />
-        <input type="checkbox" id="answer3" name="answer3" value="C - " />
-        <label id="questionAnswerSelection3" for="answer3"></label><br />
-        <input type="checkbox" id="answer4" name="answer4" value="D - " />
-        <label id="questionAnswerSelection4" for="answer4"></label><br /><br />
+      <div class="quizAnswerSelection" id="quizAnswerSelectionCheckBox">
+        <div>
+          <input
+            type="checkbox"
+            id="checkBoxAnswer1"
+            name="answer1"
+            value="A - "
+          />
+          <label id="questionAnswerSelection1" for="checkBoxAnswer1"></label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="checkBoxAnswer2"
+            name="answer2"
+            value="B - "
+          />
+          <label id="questionAnswerSelection2" for="checkBoxAnswer2"></label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="checkBoxAnswer3"
+            name="answer3"
+            value="C - "
+          />
+          <label id="questionAnswerSelection3" for="checkBoxAnswer3"></label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="checkBoxAnswer4"
+            name="answer4"
+            value="D - "
+          />
+          <label id="questionAnswerSelection4" for="checkBoxAnswer4"></label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="radioButtonAnswer1"
+            name="fav_language"
+            value="A - "
+          />
+          <label
+            id="questionAnswerSelectionRadioButton1"
+            for="radioButtonAnswer1"
+          ></label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="radioButtonAnswer2"
+            name="fav_language"
+            value="B - "
+          />
+          <label
+            id="questionAnswerSelectionRadioButton2"
+            for="radioButtonAnswer2"
+          ></label>
+        </div>
       </div>
       <div id="quizStartButton">
         <button onclick="startQuiz()">Starta ny quiz</button>

@@ -8,7 +8,7 @@ body {
   border-color: black;
   border-style: solid;
   border-radius: 45px;
-  
+
   .quiz-game {
     justify-self: center;
   }
@@ -18,6 +18,10 @@ body {
     border-radius: 1rem;
     padding: 1rem;
     margin-bottom: 1rem;
+  }
+
+  .quizAnswerSelection {
+    width: 100%;
   }
 
   button {
